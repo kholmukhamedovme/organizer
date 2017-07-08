@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Organizer</string>
+    <string name="pull_to_add">Pull to add</string>
+    <string name="calendar">Calendar</string>
+    <string name="todo">To-do list</string>
+    <string name="time_tracker">Time tracker</string>
 </resources>

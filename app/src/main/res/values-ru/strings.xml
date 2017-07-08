@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Органайзер</string>
+    <string name="pull_to_add">Потяните для добавления</string>
+    <string name="calendar">Календарь</string>
+    <string name="time_tracker">Тайм-трекер</string>
+    <string name="todo">Список дел</string>
 </resources>

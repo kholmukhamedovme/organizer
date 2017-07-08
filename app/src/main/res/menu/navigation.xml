@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/main_bottom_sheet_navigation_calendar"
+        android:icon="@drawable/ic_calendar"
+        android:title="@string/calendar" />
+
+    <item
+        android:id="@+id/main_bottom_sheet_navigation_todo"
+        android:icon="@drawable/ic_todo"
+        android:title="@string/todo" />
+
+    <item
+        android:id="@+id/main_bottom_sheet_navigation_time_tracker"
+        android:icon="@drawable/ic_time_tracker"
+        android:title="@string/time_tracker" />
+
+</menu>

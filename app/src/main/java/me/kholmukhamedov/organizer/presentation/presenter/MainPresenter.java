@@ -1,6 +1,5 @@
 package me.kholmukhamedov.organizer.presentation.presenter;
 
-
 import me.kholmukhamedov.organizer.presentation.view.MainView;
 
 import com.arellomobile.mvp.InjectViewState;
