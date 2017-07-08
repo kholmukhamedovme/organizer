@@ -11,24 +11,28 @@
     <group
         android:id="@+id/main_toolbar_calendar_options"
         android:visible="false">
-
         <item
             android:id="@+id/main_toolbar_change_view"
             android:title="@string/change_view"
             app:showAsAction="never" />
-
     </group>
 
     <group
         android:id="@+id/main_toolbar_todo_options"
         android:visible="false">
-
+        <item
+            android:id="@+id/main_toolbar_delete_all_todos"
+            android:title="@string/delete_all"
+            app:showAsAction="never" />
     </group>
 
     <group
         android:id="@+id/main_toolbar_time_tracker_options"
         android:visible="false">
-
+        <item
+            android:id="@+id/main_toolbar_reset_all_chronographs"
+            android:title="@string/reset_all"
+            app:showAsAction="never" />
     </group>
 
     <item
