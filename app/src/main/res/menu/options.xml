@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/main_toolbar_add"
+        android:icon="@drawable/ic_add"
+        android:title="@string/add"
+        app:showAsAction="ifRoom" />
+
+    <group
+        android:id="@+id/main_toolbar_calendar_options"
+        android:visible="false">
+
+        <item
+            android:id="@+id/main_toolbar_change_view"
+            android:title="@string/change_view"
+            app:showAsAction="never" />
+
+    </group>
+
+    <group
+        android:id="@+id/main_toolbar_todo_options"
+        android:visible="false">
+
+    </group>
+
+    <group
+        android:id="@+id/main_toolbar_time_tracker_options"
+        android:visible="false">
+
+    </group>
+
+    <item
+        android:id="@+id/main_toolbar_settings"
+        android:title="@string/settings"
+        app:showAsAction="never" />
+
+</menu>
