@@ -6,24 +6,24 @@
     android:layout_width="match_parent"
     tools:context=".ui.activity.MainActivity">
 
-    <FrameLayout
+    <ScrollView
         android:id="@+id/main_fragment"
         android:layout_height="match_parent"
         android:layout_width="match_parent" />
 
     <LinearLayout
         android:id="@+id/main_bottom_sheet"
+        android:background="?android:windowBackground"
         android:orientation="vertical"
         android:layout_height="match_parent"
         android:layout_width="match_parent"
-        app:behavior_peekHeight="100dp"
+        app:behavior_peekHeight="80dp"
         app:layout_behavior="@string/bottom_sheet_behavior">
 
         <android.support.design.widget.BottomNavigationView
             android:id="@+id/main_bottom_sheet_navigation"
-            android:background="?android:attr/windowBackground"
-            android:layout_gravity="start"
-            android:layout_height="80dp"
+            android:background="?android:windowBackground"
+            android:layout_height="60dp"
             android:layout_width="match_parent"
             app:menu="@menu/navigation" />
 
