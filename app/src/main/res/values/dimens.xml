@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="peek_height">80dp</dimen>
+    <dimen name="peek_navigation_height">60dp</dimen>
+    <dimen name="peek_hint_height">20dp</dimen>
+</resources>
