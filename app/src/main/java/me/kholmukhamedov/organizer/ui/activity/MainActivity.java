@@ -122,8 +122,7 @@ public class MainActivity extends MvpAppCompatActivity implements MainView {
         public void onStateChanged(@NonNull View bottomSheet, int newState) {
             switch (newState) {
                 case BottomSheetBehavior.STATE_DRAGGING:
-                    if (bottomSheetHint.getVisibility() != View.INVISIBLE) // TODO: Delete or don't delete
-                        bottomSheetHint.setVisibility(View.INVISIBLE);
+                    bottomSheetHint.setVisibility(View.INVISIBLE);
                     break;
                 case BottomSheetBehavior.STATE_COLLAPSED:
                     bottomSheetHint.setVisibility(View.VISIBLE);
