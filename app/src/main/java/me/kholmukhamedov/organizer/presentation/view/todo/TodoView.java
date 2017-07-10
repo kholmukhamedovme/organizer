@@ -1,4 +1,4 @@
-package me.kholmukhamedov.organizer.presentation.view;
+package me.kholmukhamedov.organizer.presentation.view.todo;
 
 import com.arellomobile.mvp.MvpView;
 

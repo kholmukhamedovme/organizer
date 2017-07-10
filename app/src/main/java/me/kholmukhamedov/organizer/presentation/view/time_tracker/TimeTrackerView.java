@@ -1,4 +1,4 @@
-package me.kholmukhamedov.organizer.presentation.view;
+package me.kholmukhamedov.organizer.presentation.view.time_tracker;
 
 import com.arellomobile.mvp.MvpView;
 

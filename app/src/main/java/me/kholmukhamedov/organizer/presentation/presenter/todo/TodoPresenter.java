@@ -1,6 +1,6 @@
-package me.kholmukhamedov.organizer.presentation.presenter;
+package me.kholmukhamedov.organizer.presentation.presenter.todo;
 
-import me.kholmukhamedov.organizer.presentation.view.TodoView;
+import me.kholmukhamedov.organizer.presentation.view.todo.TodoView;
 
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;

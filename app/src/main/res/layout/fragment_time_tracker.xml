@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_height="match_parent"
     android:layout_width="match_parent"
-    tools:context=".ui.fragment.TimeTrackerFragment"
+    tools:context=".ui.fragment.time_tracker.TimeTrackerFragment"
     tools:showIn="@layout/activity_main">
 
     <TextView

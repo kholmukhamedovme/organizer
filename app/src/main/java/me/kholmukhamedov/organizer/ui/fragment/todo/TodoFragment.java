@@ -1,4 +1,4 @@
-package me.kholmukhamedov.organizer.ui.fragment;
+package me.kholmukhamedov.organizer.ui.fragment.todo;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -7,8 +7,8 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import me.kholmukhamedov.organizer.presentation.view.TodoView;
-import me.kholmukhamedov.organizer.presentation.presenter.TodoPresenter;
+import me.kholmukhamedov.organizer.presentation.view.todo.TodoView;
+import me.kholmukhamedov.organizer.presentation.presenter.todo.TodoPresenter;
 
 import com.arellomobile.mvp.MvpAppCompatFragment;
 

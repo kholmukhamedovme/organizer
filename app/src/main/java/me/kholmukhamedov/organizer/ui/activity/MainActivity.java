@@ -22,9 +22,12 @@ import me.kholmukhamedov.organizer.presentation.presenter.MainPresenter;
 import com.arellomobile.mvp.MvpAppCompatActivity;
 
 import me.kholmukhamedov.organizer.R;
-import me.kholmukhamedov.organizer.ui.fragment.CalendarFragment;
-import me.kholmukhamedov.organizer.ui.fragment.TimeTrackerFragment;
-import me.kholmukhamedov.organizer.ui.fragment.TodoFragment;
+import me.kholmukhamedov.organizer.ui.fragment.calendar.CalendarFragment;
+import me.kholmukhamedov.organizer.ui.fragment.time_tracker.TimeTrackerFragment;
+import me.kholmukhamedov.organizer.ui.fragment.todo.TodoFragment;
+import me.kholmukhamedov.organizer.ui.fragment.calendar.AddAppointmentFragment;
+import me.kholmukhamedov.organizer.ui.fragment.time_tracker.AddChronographFragment;
+import me.kholmukhamedov.organizer.ui.fragment.todo.AddTodoFragment;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
 
@@ -76,21 +79,21 @@ public class MainActivity extends MvpAppCompatActivity implements MainView {
                 fragmentManager
                         .beginTransaction()
                         .replace(R.id.main_fragment, CalendarFragment.newInstance(), CalendarFragment.TAG)
-//                        .replace(R.id.main_bottom_sheet_fragment, AddAppointmentFragment.newInstance(), AddAppointmentFragment.TAG)
+                        .replace(R.id.main_bottom_sheet_fragment, AddAppointmentFragment.newInstance(), AddAppointmentFragment.TAG)
                         .commit();
                 break;
             case TODO:
                 fragmentManager
                         .beginTransaction()
                         .replace(R.id.main_fragment, TodoFragment.newInstance(), TodoFragment.TAG)
-//                        .replace(R.id.main_bottom_sheet_fragment, AddTodoFragment.newInstance(), AddTodoFragment.TAG)
+                        .replace(R.id.main_bottom_sheet_fragment, AddTodoFragment.newInstance(), AddTodoFragment.TAG)
                         .commit();
                 break;
             case TIME_TRACKER:
                 fragmentManager
                         .beginTransaction()
                         .replace(R.id.main_fragment, TimeTrackerFragment.newInstance(), TimeTrackerFragment.TAG)
-//                        .replace(R.id.main_bottom_sheet_fragment, AddChronographFragment.newInstance(), AddChronographFragment.TAG)
+                        .replace(R.id.main_bottom_sheet_fragment, AddChronographFragment.newInstance(), AddChronographFragment.TAG)
                         .commit();
                 break;
         }
