@@ -34,17 +34,14 @@ public class MainActivity extends MvpAppCompatActivity implements MainView {
     private FragmentManager fragmentManager;
 
     @InjectPresenter
-    MainPresenter mMainPresenter;
+    MainPresenter presenter;
 
     @BindView(R.id.main_toolbar)
     Toolbar toolbar;
-
     @BindView(R.id.main_bottom_sheet)
     LinearLayout bottomSheet;
-
     @BindView(R.id.main_bottom_sheet_navigation)
     BottomNavigationView bottomSheetNavigation;
-
     @BindView(R.id.main_bottom_sheet_hint)
     TextView bottomSheetHint;
 
@@ -53,62 +50,17 @@ public class MainActivity extends MvpAppCompatActivity implements MainView {
         return intent;
     }
 
-    private BottomNavigationView.OnNavigationItemSelectedListener onNavigationItemSelectedListener =
-            new BottomNavigationView.OnNavigationItemSelectedListener() {
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            switch (item.getItemId()) {
-                case R.id.main_bottom_sheet_navigation_calendar:
-                    mMainPresenter.changeTab(MainPresenter.Tab.CALENDAR);
-                    return true;
-                case R.id.main_bottom_sheet_navigation_todo:
-                    mMainPresenter.changeTab(MainPresenter.Tab.TODO);
-                    return true;
-                case R.id.main_bottom_sheet_navigation_time_tracker:
-                    mMainPresenter.changeTab(MainPresenter.Tab.TIME_TRACKER);
-                    return true;
-            }
-
-            return false;
-        }
-    };
-
-    private BottomSheetBehavior.BottomSheetCallback bottomSheetCallback =
-            new BottomSheetBehavior.BottomSheetCallback() {
-        @Override
-        public void onStateChanged(@NonNull View bottomSheet, int newState) {
-            switch (newState) {
-                case BottomSheetBehavior.STATE_DRAGGING:
-                    if (bottomSheetHint.getVisibility() != View.INVISIBLE)
-                        bottomSheetHint.setVisibility(View.INVISIBLE);
-                    break;
-                case BottomSheetBehavior.STATE_COLLAPSED:
-                    bottomSheetHint.setVisibility(View.VISIBLE);
-                    break;
-            }
-        }
-
-        @Override
-        public void onSlide(@NonNull View bottomSheet, float slideOffset) {
-
-        }
-    };
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         ButterKnife.bind(this);
 
         setSupportActionBar(toolbar);
-
+        BottomSheetBehavior.from(bottomSheet).setBottomSheetCallback(bottomSheetCallback);
         bottomSheetNavigation.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener);
 
         fragmentManager = getSupportFragmentManager();
-
-        BottomSheetBehavior bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
-        bottomSheetBehavior.setBottomSheetCallback(bottomSheetCallback);
     }
 
     @Override
@@ -143,4 +95,45 @@ public class MainActivity extends MvpAppCompatActivity implements MainView {
                 break;
         }
     }
+
+    private BottomNavigationView.OnNavigationItemSelectedListener onNavigationItemSelectedListener =
+            new BottomNavigationView.OnNavigationItemSelectedListener() {
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            switch (item.getItemId()) {
+                case R.id.main_bottom_sheet_navigation_calendar:
+                    presenter.changeTab(MainPresenter.Tab.CALENDAR);
+                    return true;
+                case R.id.main_bottom_sheet_navigation_todo:
+                    presenter.changeTab(MainPresenter.Tab.TODO);
+                    return true;
+                case R.id.main_bottom_sheet_navigation_time_tracker:
+                    presenter.changeTab(MainPresenter.Tab.TIME_TRACKER);
+                    return true;
+            }
+
+            return false;
+        }
+    };
+
+    private BottomSheetBehavior.BottomSheetCallback bottomSheetCallback =
+            new BottomSheetBehavior.BottomSheetCallback() {
+        @Override
+        public void onStateChanged(@NonNull View bottomSheet, int newState) {
+            switch (newState) {
+                case BottomSheetBehavior.STATE_DRAGGING:
+                    if (bottomSheetHint.getVisibility() != View.INVISIBLE)
+                        bottomSheetHint.setVisibility(View.INVISIBLE);
+                    break;
+                case BottomSheetBehavior.STATE_COLLAPSED:
+                    bottomSheetHint.setVisibility(View.VISIBLE);
+                    break;
+            }
+        }
+
+        @Override
+        public void onSlide(@NonNull View bottomSheet, float slideOffset) {
+
+        }
+    };
 }
