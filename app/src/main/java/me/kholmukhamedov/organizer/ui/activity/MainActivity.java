@@ -34,6 +34,7 @@ import com.arellomobile.mvp.presenter.InjectPresenter;
 public class MainActivity extends MvpAppCompatActivity implements MainView {
     public static final String TAG = "MainActivity";
 
+    private BottomSheetBehavior bottomSheetBehavior;
     private FragmentManager fragmentManager;
 
     @InjectPresenter
@@ -60,7 +61,9 @@ public class MainActivity extends MvpAppCompatActivity implements MainView {
         ButterKnife.bind(this);
 
         setSupportActionBar(toolbar);
-        BottomSheetBehavior.from(bottomSheet).setBottomSheetCallback(bottomSheetCallback);
+
+        bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
+        bottomSheetBehavior.setBottomSheetCallback(bottomSheetCallback);
         bottomSheetNavigation.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener);
 
         fragmentManager = getSupportFragmentManager();
@@ -70,6 +73,18 @@ public class MainActivity extends MvpAppCompatActivity implements MainView {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.options, menu);
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.main_toolbar_add:
+                bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+                bottomSheetHint.setVisibility(View.INVISIBLE);
+                return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
