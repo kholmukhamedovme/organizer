@@ -7,14 +7,24 @@ import com.arellomobile.mvp.MvpPresenter;
 
 @InjectViewState
 public class MainPresenter extends MvpPresenter<MainView> {
-    private Tab tab;
+    private Tab tab = Tab.CALENDAR;
 
     public MainPresenter() {
-        getViewState().navigateTo(Tab.CALENDAR);
+        getViewState().navigateTo(tab);
     }
 
-    public void changeTab (Tab tab) {
-        this.tab = tab;
+    public void navigateToCalendar() {
+        tab = Tab.CALENDAR;
+        getViewState().navigateTo(tab);
+    }
+
+    public void navigateToTodo() {
+        tab = Tab.TODO;
+        getViewState().navigateTo(tab);
+    }
+
+    public void navigateToTimeTracker() {
+        tab = Tab.TIME_TRACKER;
         getViewState().navigateTo(tab);
     }
 

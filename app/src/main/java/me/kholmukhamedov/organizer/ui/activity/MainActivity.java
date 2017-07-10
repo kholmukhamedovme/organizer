@@ -102,13 +102,13 @@ public class MainActivity extends MvpAppCompatActivity implements MainView {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.main_bottom_sheet_navigation_calendar:
-                    presenter.changeTab(MainPresenter.Tab.CALENDAR);
+                    presenter.navigateToCalendar();
                     return true;
                 case R.id.main_bottom_sheet_navigation_todo:
-                    presenter.changeTab(MainPresenter.Tab.TODO);
+                    presenter.navigateToTodo();
                     return true;
                 case R.id.main_bottom_sheet_navigation_time_tracker:
-                    presenter.changeTab(MainPresenter.Tab.TIME_TRACKER);
+                    presenter.navigateToTimeTracker();
                     return true;
             }
 
@@ -122,7 +122,7 @@ public class MainActivity extends MvpAppCompatActivity implements MainView {
         public void onStateChanged(@NonNull View bottomSheet, int newState) {
             switch (newState) {
                 case BottomSheetBehavior.STATE_DRAGGING:
-                    if (bottomSheetHint.getVisibility() != View.INVISIBLE)
+                    if (bottomSheetHint.getVisibility() != View.INVISIBLE) // TODO: Delete or don't delete
                         bottomSheetHint.setVisibility(View.INVISIBLE);
                     break;
                 case BottomSheetBehavior.STATE_COLLAPSED:
@@ -132,8 +132,6 @@ public class MainActivity extends MvpAppCompatActivity implements MainView {
         }
 
         @Override
-        public void onSlide(@NonNull View bottomSheet, float slideOffset) {
-
-        }
+        public void onSlide(@NonNull View bottomSheet, float slideOffset) {}
     };
 }
