@@ -1,7 +1,5 @@
 package me.kholmukhamedov.organizer.ui.activity;
 
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -49,11 +47,6 @@ public class MainActivity extends MvpAppCompatActivity implements MainView {
     @BindView(R.id.main_bottom_sheet_hint)
     TextView bottomSheetHint;
 
-    public static Intent getIntent(final Context context) {
-        Intent intent = new Intent(context, MainActivity.class);
-        return intent;
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,8 +72,7 @@ public class MainActivity extends MvpAppCompatActivity implements MainView {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.main_toolbar_add:
-                bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
-                bottomSheetHint.setVisibility(View.INVISIBLE);
+                presenter.expandAddScreen();
                 return true;
         }
 
@@ -88,30 +80,42 @@ public class MainActivity extends MvpAppCompatActivity implements MainView {
     }
 
     @Override
-    public void navigateTo(MainPresenter.Tab tab) {
-        switch (tab) {
-            case CALENDAR:
-                fragmentManager
-                        .beginTransaction()
-                        .replace(R.id.main_fragment, CalendarFragment.newInstance(), CalendarFragment.TAG)
-                        .replace(R.id.main_bottom_sheet_fragment, AddAppointmentFragment.newInstance(), AddAppointmentFragment.TAG)
-                        .commit();
-                break;
-            case TODO:
-                fragmentManager
-                        .beginTransaction()
-                        .replace(R.id.main_fragment, TodoFragment.newInstance(), TodoFragment.TAG)
-                        .replace(R.id.main_bottom_sheet_fragment, AddTodoFragment.newInstance(), AddTodoFragment.TAG)
-                        .commit();
-                break;
-            case TIME_TRACKER:
-                fragmentManager
-                        .beginTransaction()
-                        .replace(R.id.main_fragment, TimeTrackerFragment.newInstance(), TimeTrackerFragment.TAG)
-                        .replace(R.id.main_bottom_sheet_fragment, AddChronographFragment.newInstance(), AddChronographFragment.TAG)
-                        .commit();
-                break;
-        }
+    public void navigateToCalendar() {
+        fragmentManager
+                .beginTransaction()
+                .replace(R.id.main_fragment, CalendarFragment.newInstance(), CalendarFragment.TAG)
+                .replace(R.id.main_bottom_sheet_fragment, AddAppointmentFragment.newInstance(), AddAppointmentFragment.TAG)
+                .commit();
+    }
+
+    @Override
+    public void navigateToTodo() {
+        fragmentManager
+                .beginTransaction()
+                .replace(R.id.main_fragment, TodoFragment.newInstance(), TodoFragment.TAG)
+                .replace(R.id.main_bottom_sheet_fragment, AddTodoFragment.newInstance(), AddTodoFragment.TAG)
+                .commit();
+    }
+
+    @Override
+    public void navigateToTimeTracker() {
+        fragmentManager
+                .beginTransaction()
+                .replace(R.id.main_fragment, TimeTrackerFragment.newInstance(), TimeTrackerFragment.TAG)
+                .replace(R.id.main_bottom_sheet_fragment, AddChronographFragment.newInstance(), AddChronographFragment.TAG)
+                .commit();
+    }
+
+    @Override
+    public void expandAddScreen() {
+        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+        bottomSheetHint.setVisibility(View.INVISIBLE);
+    }
+
+    @Override
+    public void collapseAddScreen() {
+        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+        bottomSheetHint.setVisibility(View.VISIBLE);
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener onNavigationItemSelectedListener =
@@ -139,11 +143,14 @@ public class MainActivity extends MvpAppCompatActivity implements MainView {
         @Override
         public void onStateChanged(@NonNull View bottomSheet, int newState) {
             switch (newState) {
+                case BottomSheetBehavior.STATE_EXPANDED:
+                    presenter.expandAddScreen();
+                    break;
                 case BottomSheetBehavior.STATE_DRAGGING:
                     bottomSheetHint.setVisibility(View.INVISIBLE);
                     break;
                 case BottomSheetBehavior.STATE_COLLAPSED:
-                    bottomSheetHint.setVisibility(View.VISIBLE);
+                    presenter.collapseAddScreen();
                     break;
             }
         }

@@ -1,7 +1,20 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:descendantFocusability="beforeDescendants"
+    android:focusableInTouchMode="true"
+    android:layout_marginTop="@dimen/main_bottom_sheet_fragment_margin_top"
+    android:layout_marginStart="@dimen/main_bottom_sheet_fragment_margin_start"
+    android:layout_marginEnd="@dimen/main_bottom_sheet_fragment_margin_end"
+    android:layout_marginBottom="@dimen/main_bottom_sheet_fragment_margin_bottom"
     tools:context=".ui.fragment.calendar.AddAppointmentFragment">
 
-</FrameLayout>
+    <EditText
+        android:id="@+id/appointment_title"
+        android:hint="@string/appointment_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+</RelativeLayout>
