@@ -48,7 +48,7 @@
         app:layout_constraintRight_toLeftOf="@+id/appointment_date_start" />
 
     <EditText
-        android:text="31/12/2014"
+        android:text="31/12/2017"
         android:id="@+id/appointment_date_start"
         android:inputType="date"
         android:ems="10"
@@ -73,7 +73,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/appointment_time_end" />
 
     <EditText
-        android:text="12:00"
+        android:text="13:00"
         android:id="@+id/appointment_time_end"
         android:inputType="time"
         android:ems="10"
@@ -86,7 +86,7 @@
         app:layout_constraintRight_toLeftOf="@+id/appointment_date_end" />
 
     <EditText
-        android:text="31/12/2014"
+        android:text="31/12/2017"
         android:id="@+id/appointment_date_end"
         android:inputType="date"
         android:ems="10"
