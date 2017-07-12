@@ -34,13 +34,11 @@ public class TodoFragment extends MvpAppCompatFragment implements TodoView {
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container,
                              final Bundle savedInstanceState) {
-        setHasOptionsMenu(true);
-        return inflater.inflate(R.layout.fragment_todo, container, false);
-    }
+        View view = inflater.inflate(R.layout.fragment_todo, container, false);
 
-    @Override
-    public void onViewCreated(final View view, final Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+        setHasOptionsMenu(true);
+
+        return view;
     }
 
     @Override

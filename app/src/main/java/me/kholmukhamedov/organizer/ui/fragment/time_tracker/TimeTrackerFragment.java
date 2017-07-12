@@ -34,13 +34,11 @@ public class TimeTrackerFragment extends MvpAppCompatFragment implements TimeTra
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container,
                              final Bundle savedInstanceState) {
-        setHasOptionsMenu(true);
-        return inflater.inflate(R.layout.fragment_time_tracker, container, false);
-    }
+        View view = inflater.inflate(R.layout.fragment_time_tracker, container, false);
 
-    @Override
-    public void onViewCreated(final View view, final Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+        setHasOptionsMenu(true);
+
+        return view;
     }
 
     @Override

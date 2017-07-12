@@ -36,21 +36,21 @@ import java.util.Map;
 public class MainActivity extends MvpAppCompatActivity implements MainView {
     public static final String TAG = "MainActivity";
 
-    private BottomSheetBehavior bottomSheetBehavior;
-    private FragmentManager fragmentManager;
-    private Map<String, Fragment> fragments = new ArrayMap<>();
+    private BottomSheetBehavior mBottomSheetBehavior;
+    private FragmentManager mFragmentManager;
+    private Map<String, Fragment> mFragmentsMap = new ArrayMap<>();
 
     @InjectPresenter
-    MainPresenter presenter;
+    MainPresenter mMainPresenter;
 
     @BindView(R.id.main_toolbar)
-    Toolbar toolbar;
+    Toolbar mToolbar;
     @BindView(R.id.main_bottom_sheet)
-    LinearLayout bottomSheet;
+    LinearLayout mBottomSheetLayout;
     @BindView(R.id.main_bottom_sheet_navigation)
-    BottomNavigationView bottomSheetNavigation;
+    BottomNavigationView mBottomSheetNavigationView;
     @BindView(R.id.main_bottom_sheet_hint)
-    TextView bottomSheetHint;
+    TextView mBottomSheetTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,13 +58,13 @@ public class MainActivity extends MvpAppCompatActivity implements MainView {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
-        setSupportActionBar(toolbar);
+        setSupportActionBar(mToolbar);
 
-        bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
-        bottomSheetBehavior.setBottomSheetCallback(bottomSheetCallback);
-        bottomSheetNavigation.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener);
+        mBottomSheetBehavior = BottomSheetBehavior.from(mBottomSheetLayout);
+        mBottomSheetBehavior.setBottomSheetCallback(bottomSheetCallback);
+        mBottomSheetNavigationView.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener);
 
-        fragmentManager = getSupportFragmentManager();
+        mFragmentManager = getSupportFragmentManager();
     }
 
     @Override
@@ -77,7 +77,7 @@ public class MainActivity extends MvpAppCompatActivity implements MainView {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.main_toolbar_add:
-                presenter.expandAddScreen();
+                mMainPresenter.expandAddScreen();
                 return true;
         }
 
@@ -86,100 +86,82 @@ public class MainActivity extends MvpAppCompatActivity implements MainView {
 
     @Override
     public void onBackPressed() {
-        if (bottomSheetBehavior.getState() == BottomSheetBehavior.STATE_EXPANDED)
-            presenter.collapseAddScreen();
+        if (mBottomSheetBehavior.getState() == BottomSheetBehavior.STATE_EXPANDED)
+            mMainPresenter.collapseAddScreen();
         else
             super.onBackPressed();
     }
 
     @Override
     public void navigateToCalendar() {
-        Fragment savedFragment = fragments.get(CalendarFragment.TAG);
-        Fragment savedAddScreenFragment = fragments.get(AddAppointmentFragment.TAG);
+        Fragment mainFragment = mFragmentsMap.get(CalendarFragment.TAG);
+        Fragment addScreenFragment = mFragmentsMap.get(AddAppointmentFragment.TAG);
 
-        if (savedFragment != null && savedAddScreenFragment != null) {
-            fragmentManager
-                    .beginTransaction()
-                    .replace(R.id.main_fragment, savedFragment, CalendarFragment.TAG)
-                    .replace(R.id.main_bottom_sheet_fragment, savedAddScreenFragment, AddAppointmentFragment.TAG)
-                    .commit();
-        } else {
-            Fragment newFragment = CalendarFragment.newInstance();
-            Fragment newAddScreenFragment = AddAppointmentFragment.newInstance();
+        if (mainFragment == null && addScreenFragment == null) {
+            mainFragment = CalendarFragment.newInstance();
+            addScreenFragment = AddAppointmentFragment.newInstance();
 
-            fragments.put(CalendarFragment.TAG, newFragment);
-            fragments.put(AddAppointmentFragment.TAG, newAddScreenFragment);
-
-            fragmentManager
-                    .beginTransaction()
-                    .replace(R.id.main_fragment, newFragment, CalendarFragment.TAG)
-                    .replace(R.id.main_bottom_sheet_fragment, newAddScreenFragment, AddAppointmentFragment.TAG)
-                    .commit();
+            mFragmentsMap.put(CalendarFragment.TAG, mainFragment);
+            mFragmentsMap.put(AddAppointmentFragment.TAG, addScreenFragment);
         }
+
+        mFragmentManager
+                .beginTransaction()
+                .replace(R.id.main_fragment, mainFragment, CalendarFragment.TAG)
+                .replace(R.id.main_bottom_sheet_fragment, addScreenFragment, AddAppointmentFragment.TAG)
+                .commit();
     }
 
     @Override
     public void navigateToTodo() {
-        Fragment savedFragment = fragments.get(TodoFragment.TAG);
-        Fragment savedAddScreenFragment = fragments.get(AddTodoFragment.TAG);
+        Fragment mainFragment = mFragmentsMap.get(TodoFragment.TAG);
+        Fragment addScreenFragment = mFragmentsMap.get(AddTodoFragment.TAG);
 
-        if (savedFragment != null && savedAddScreenFragment != null) {
-            fragmentManager
-                    .beginTransaction()
-                    .replace(R.id.main_fragment, savedFragment, TodoFragment.TAG)
-                    .replace(R.id.main_bottom_sheet_fragment, savedAddScreenFragment, AddTodoFragment.TAG)
-                    .commit();
-        } else {
-            Fragment newFragment = TodoFragment.newInstance();
-            Fragment newAddScreenFragment = AddTodoFragment.newInstance();
+        if (mainFragment == null && addScreenFragment == null) {
+            mainFragment = TodoFragment.newInstance();
+            addScreenFragment = AddTodoFragment.newInstance();
 
-            fragments.put(TodoFragment.TAG, newFragment);
-            fragments.put(AddTodoFragment.TAG, newAddScreenFragment);
-
-            fragmentManager
-                    .beginTransaction()
-                    .replace(R.id.main_fragment, newFragment, TodoFragment.TAG)
-                    .replace(R.id.main_bottom_sheet_fragment, newAddScreenFragment, AddTodoFragment.TAG)
-                    .commit();
+            mFragmentsMap.put(TodoFragment.TAG, mainFragment);
+            mFragmentsMap.put(AddTodoFragment.TAG, addScreenFragment);
         }
+
+        mFragmentManager
+                .beginTransaction()
+                .replace(R.id.main_fragment, mainFragment, TodoFragment.TAG)
+                .replace(R.id.main_bottom_sheet_fragment, addScreenFragment, AddTodoFragment.TAG)
+                .commit();
     }
 
     @Override
     public void navigateToTimeTracker() {
-        Fragment savedFragment = fragments.get(TimeTrackerFragment.TAG);
-        Fragment savedAddScreenFragment = fragments.get(AddChronographFragment.TAG);
+        Fragment mainFragment = mFragmentsMap.get(TimeTrackerFragment.TAG);
+        Fragment addScreenFragment = mFragmentsMap.get(AddChronographFragment.TAG);
 
-        if (savedFragment != null && savedAddScreenFragment != null) {
-            fragmentManager
-                    .beginTransaction()
-                    .replace(R.id.main_fragment, savedFragment, TimeTrackerFragment.TAG)
-                    .replace(R.id.main_bottom_sheet_fragment, savedAddScreenFragment, AddChronographFragment.TAG)
-                    .commit();
-        } else {
-            Fragment newFragment = TimeTrackerFragment.newInstance();
-            Fragment newAddScreenFragment = AddChronographFragment.newInstance();
+        if (mainFragment == null && addScreenFragment == null) {
+            mainFragment = TimeTrackerFragment.newInstance();
+            addScreenFragment = AddChronographFragment.newInstance();
 
-            fragments.put(TimeTrackerFragment.TAG, newFragment);
-            fragments.put(AddChronographFragment.TAG, newAddScreenFragment);
-
-            fragmentManager
-                    .beginTransaction()
-                    .replace(R.id.main_fragment, newFragment, TimeTrackerFragment.TAG)
-                    .replace(R.id.main_bottom_sheet_fragment, newAddScreenFragment, AddChronographFragment.TAG)
-                    .commit();
+            mFragmentsMap.put(TimeTrackerFragment.TAG, mainFragment);
+            mFragmentsMap.put(AddChronographFragment.TAG, addScreenFragment);
         }
+
+        mFragmentManager
+                .beginTransaction()
+                .replace(R.id.main_fragment, mainFragment, TimeTrackerFragment.TAG)
+                .replace(R.id.main_bottom_sheet_fragment, addScreenFragment, AddChronographFragment.TAG)
+                .commit();
     }
 
     @Override
     public void expandAddScreen() {
-        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
-        bottomSheetHint.setVisibility(View.INVISIBLE);
+        mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+        mBottomSheetTextView.setVisibility(View.INVISIBLE);
     }
 
     @Override
     public void collapseAddScreen() {
-        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
-        bottomSheetHint.setVisibility(View.VISIBLE);
+        mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+        mBottomSheetTextView.setVisibility(View.VISIBLE);
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener onNavigationItemSelectedListener =
@@ -188,13 +170,13 @@ public class MainActivity extends MvpAppCompatActivity implements MainView {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.main_bottom_sheet_navigation_calendar:
-                    presenter.navigateToCalendar();
+                    mMainPresenter.navigateToCalendar();
                     return true;
                 case R.id.main_bottom_sheet_navigation_todo:
-                    presenter.navigateToTodo();
+                    mMainPresenter.navigateToTodo();
                     return true;
                 case R.id.main_bottom_sheet_navigation_time_tracker:
-                    presenter.navigateToTimeTracker();
+                    mMainPresenter.navigateToTimeTracker();
                     return true;
             }
 
@@ -208,13 +190,13 @@ public class MainActivity extends MvpAppCompatActivity implements MainView {
         public void onStateChanged(@NonNull View bottomSheet, int newState) {
             switch (newState) {
                 case BottomSheetBehavior.STATE_EXPANDED:
-                    presenter.expandAddScreen();
+                    mMainPresenter.expandAddScreen();
                     break;
                 case BottomSheetBehavior.STATE_DRAGGING:
-                    bottomSheetHint.setVisibility(View.INVISIBLE);
+                    mBottomSheetTextView.setVisibility(View.INVISIBLE);
                     break;
                 case BottomSheetBehavior.STATE_COLLAPSED:
-                    presenter.collapseAddScreen();
+                    mMainPresenter.collapseAddScreen();
                     break;
             }
         }

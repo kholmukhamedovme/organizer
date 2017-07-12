@@ -7,6 +7,8 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import me.kholmukhamedov.organizer.presentation.view.calendar.CalendarView;
 import me.kholmukhamedov.organizer.presentation.presenter.calendar.CalendarPresenter;
 
@@ -22,6 +24,9 @@ public class CalendarFragment extends MvpAppCompatFragment implements CalendarVi
     @InjectPresenter
     CalendarPresenter mCalendarPresenter;
 
+    @BindView(R.id.calendar)
+    android.widget.CalendarView mCalendarView;
+
     public static CalendarFragment newInstance() {
         CalendarFragment fragment = new CalendarFragment();
 
@@ -34,13 +39,12 @@ public class CalendarFragment extends MvpAppCompatFragment implements CalendarVi
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container,
                              final Bundle savedInstanceState) {
-        setHasOptionsMenu(true);
-        return inflater.inflate(R.layout.fragment_calendar, container, false);
-    }
+        View view = inflater.inflate(R.layout.fragment_calendar, container, false);
+        ButterKnife.bind(this, view);
 
-    @Override
-    public void onViewCreated(final View view, final Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+        setHasOptionsMenu(true);
+
+        return view;
     }
 
     @Override

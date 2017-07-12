@@ -32,11 +32,8 @@ public class AddChronographFragment extends MvpAppCompatFragment implements AddC
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container,
                              final Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_add_chronograph, container, false);
-    }
+        View view = inflater.inflate(R.layout.fragment_add_chronograph, container, false);
 
-    @Override
-    public void onViewCreated(final View view, final Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+        return view;
     }
 }
