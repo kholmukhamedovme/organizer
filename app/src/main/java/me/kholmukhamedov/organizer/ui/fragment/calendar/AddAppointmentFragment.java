@@ -101,12 +101,11 @@ public class AddAppointmentFragment extends MvpAppCompatFragment implements AddA
                 String selectedMinute = getValidDateTime(minute);
 
                 if (view.getId() == R.id.appointment_time_start) {
-                    Calendar oneHourOffsetCalendar = (Calendar) mCalendar.clone();
-                    oneHourOffsetCalendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
-                    oneHourOffsetCalendar.set(Calendar.MINUTE, minute);
-                    oneHourOffsetCalendar.setTimeInMillis(oneHourOffsetCalendar.getTimeInMillis() + 3600000);
+                    mCalendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
+                    mCalendar.set(Calendar.MINUTE, minute);
+                    mCalendar.setTimeInMillis(mCalendar.getTimeInMillis() + 3600000);
 
-                    int oneHourOffset = oneHourOffsetCalendar.get(Calendar.HOUR_OF_DAY);
+                    int oneHourOffset = mCalendar.get(Calendar.HOUR_OF_DAY);
                     String oneHourLater = getValidDateTime(oneHourOffset);
 
                     mAppointmentTimeEnd.setText(oneHourLater + ":" + selectedMinute);
