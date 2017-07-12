@@ -1,6 +1,7 @@
 package me.kholmukhamedov.organizer.ui.fragment.calendar;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -18,8 +19,12 @@ import me.kholmukhamedov.organizer.R;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
 
+import java.util.Calendar;
+
 public class CalendarFragment extends MvpAppCompatFragment implements CalendarView {
     public static final String TAG = "CalendarFragment";
+
+    private Calendar mCalendar;
 
     @InjectPresenter
     CalendarPresenter mCalendarPresenter;
@@ -43,6 +48,8 @@ public class CalendarFragment extends MvpAppCompatFragment implements CalendarVi
         ButterKnife.bind(this, view);
 
         setHasOptionsMenu(true);
+        mCalendar = Calendar.getInstance();
+        mCalendarView.setOnDateChangeListener(onDateChangeListener);
 
         return view;
     }
@@ -59,4 +66,16 @@ public class CalendarFragment extends MvpAppCompatFragment implements CalendarVi
     public void showCalendarView() {
         if (mCalendarView != null) mCalendarView.setVisibility(View.VISIBLE);
     }
+
+    public long getSelectedDate() {
+        return mCalendar.getTimeInMillis();
+    }
+
+    private android.widget.CalendarView.OnDateChangeListener onDateChangeListener =
+            new android.widget.CalendarView.OnDateChangeListener() {
+        @Override
+        public void onSelectedDayChange(@NonNull android.widget.CalendarView calendarView, int year, int month, int dayOfMonth) {
+            mCalendar.set(year, month, dayOfMonth);
+        }
+    };
 }

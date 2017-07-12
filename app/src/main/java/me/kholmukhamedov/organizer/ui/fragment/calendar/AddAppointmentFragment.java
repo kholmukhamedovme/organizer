@@ -31,7 +31,7 @@ import java.util.Date;
 public class AddAppointmentFragment extends MvpAppCompatFragment implements AddAppointmentView {
     public static final String TAG = "AddAppointmentFragment";
 
-    private Calendar mCalendar = Calendar.getInstance();
+    private Calendar mCalendar;
 
     @InjectPresenter
     AddAppointmentPresenter mAddAppointmentPresenter;
@@ -62,7 +62,20 @@ public class AddAppointmentFragment extends MvpAppCompatFragment implements AddA
         View view = inflater.inflate(R.layout.fragment_add_appointment, container, false);
         ButterKnife.bind(this, view);
 
+        mCalendar = Calendar.getInstance();
+        setDefaultDate(mCalendar.getTimeInMillis());
+
         return view;
+    }
+
+    public void setDefaultDate (long selectedDate) {
+        mCalendar.setTimeInMillis(selectedDate);
+        String selectedYear = String.valueOf(mCalendar.get(Calendar.YEAR));
+        String selectedMonth = getValidDateTime(mCalendar.get(Calendar.MONTH));
+        String selectedDay = getValidDateTime(mCalendar.get(Calendar.DAY_OF_MONTH));
+
+        mAppointmentDateStart.setText(selectedDay + "/" + selectedMonth + "/" + selectedYear);
+        mAppointmentDateEnd.setText(selectedDay + "/" + selectedMonth + "/" + selectedYear);
     }
 
     @OnClick({ R.id.appointment_time_start, R.id.appointment_time_end })

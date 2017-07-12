@@ -78,6 +78,20 @@ public class MainActivity extends MvpAppCompatActivity implements MainView {
         switch (item.getItemId()) {
             case R.id.main_toolbar_add:
                 mMainPresenter.expandAddScreen();
+
+                switch (mBottomSheetNavigationView.getSelectedItemId()) {
+                    case R.id.main_bottom_sheet_navigation_calendar:
+                        CalendarFragment calendarFragment =
+                                (CalendarFragment) mFragmentsMap.get(CalendarFragment.TAG);
+                        AddAppointmentFragment addAppointmentFragment =
+                                (AddAppointmentFragment) mFragmentsMap.get(AddAppointmentFragment.TAG);
+
+                        long selectedDate = calendarFragment.getSelectedDate();
+                        addAppointmentFragment.setDefaultDate(selectedDate);
+
+                        break;
+                }
+
                 return true;
         }
 
