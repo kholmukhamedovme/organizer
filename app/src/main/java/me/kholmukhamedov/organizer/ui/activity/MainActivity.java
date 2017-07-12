@@ -160,7 +160,7 @@ public class MainActivity extends MvpAppCompatActivity implements MainView {
         switch (mBottomSheetNavigationView.getSelectedItemId()) {
             case R.id.main_bottom_sheet_navigation_calendar:
                 CalendarFragment calendarFragment = (CalendarFragment) mFragmentsMap.get(CalendarFragment.TAG);
-                calendarFragment.hideCalendarView();
+                if (calendarFragment != null) calendarFragment.hideCalendarView();
                 break;
         }
     }
@@ -173,7 +173,7 @@ public class MainActivity extends MvpAppCompatActivity implements MainView {
         switch (mBottomSheetNavigationView.getSelectedItemId()) {
             case R.id.main_bottom_sheet_navigation_calendar:
                 CalendarFragment calendarFragment = (CalendarFragment) mFragmentsMap.get(CalendarFragment.TAG);
-                calendarFragment.showCalendarView();
+                if (calendarFragment != null) calendarFragment.showCalendarView();
                 break;
         }
     }
@@ -219,7 +219,7 @@ public class MainActivity extends MvpAppCompatActivity implements MainView {
             switch (mBottomSheetNavigationView.getSelectedItemId()) {
                 case R.id.main_bottom_sheet_navigation_calendar:
                     CalendarFragment calendarFragment = (CalendarFragment) mFragmentsMap.get(CalendarFragment.TAG);
-                    calendarFragment.showCalendarView();
+                    if (calendarFragment != null) calendarFragment.showCalendarView();
                     break;
             }
         }
