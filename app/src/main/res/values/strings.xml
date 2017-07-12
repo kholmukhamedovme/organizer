@@ -9,5 +9,7 @@
     <string name="todo">To-do list</string>
     <string name="time_tracker">Time tracker</string>
     <string name="pull_to_add">Pull to add</string>
-    <string name="appointment_title">Title</string>
+    <string name="title">Title</string>
+    <string name="from">From</string>
+    <string name="to">To</string>
 </resources>

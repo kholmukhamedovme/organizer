@@ -31,5 +31,6 @@ dependencies {
     compile 'com.arello-mobile:moxy-app-compat:1.5.3'
     compile 'com.android.support:appcompat-v7:26.+'
     compile 'com.android.support:design:26.+'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
     testCompile 'junit:junit:4.12'
 }

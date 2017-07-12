@@ -10,5 +10,7 @@
     <string name="todo">Список дел</string>
     <string name="time_tracker">Тайм-трекер</string>
     <string name="pull_to_add">Потяните для добавления</string>
-    <string name="appointment_title">Заголовок</string>
+    <string name="title">Заголовок</string>
+    <string name="from">С</string>
+    <string name="to">До</string>
 </resources>
