@@ -157,12 +157,8 @@ public class MainActivity extends MvpAppCompatActivity implements MainView {
         mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
         mBottomSheetTextView.setVisibility(View.INVISIBLE);
 
-        switch (mBottomSheetNavigationView.getSelectedItemId()) {
-            case R.id.main_bottom_sheet_navigation_calendar:
-                CalendarFragment calendarFragment = (CalendarFragment) mFragmentsMap.get(CalendarFragment.TAG);
-                if (calendarFragment != null) calendarFragment.hideCalendarView();
-                break;
-        }
+        CalendarFragment calendarFragment = (CalendarFragment) mFragmentsMap.get(CalendarFragment.TAG);
+        if (calendarFragment != null) calendarFragment.hideCalendarView();
     }
 
     @Override
@@ -170,12 +166,8 @@ public class MainActivity extends MvpAppCompatActivity implements MainView {
         mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
         mBottomSheetTextView.setVisibility(View.VISIBLE);
 
-        switch (mBottomSheetNavigationView.getSelectedItemId()) {
-            case R.id.main_bottom_sheet_navigation_calendar:
-                CalendarFragment calendarFragment = (CalendarFragment) mFragmentsMap.get(CalendarFragment.TAG);
-                if (calendarFragment != null) calendarFragment.showCalendarView();
-                break;
-        }
+        CalendarFragment calendarFragment = (CalendarFragment) mFragmentsMap.get(CalendarFragment.TAG);
+        if (calendarFragment != null) calendarFragment.showCalendarView();
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener onNavigationItemSelectedListener =
@@ -216,12 +208,8 @@ public class MainActivity extends MvpAppCompatActivity implements MainView {
         public void onSlide(@NonNull View bottomSheet, float slideOffset) {
             mBottomSheetTextView.setVisibility(View.INVISIBLE);
 
-            switch (mBottomSheetNavigationView.getSelectedItemId()) {
-                case R.id.main_bottom_sheet_navigation_calendar:
-                    CalendarFragment calendarFragment = (CalendarFragment) mFragmentsMap.get(CalendarFragment.TAG);
-                    if (calendarFragment != null) calendarFragment.showCalendarView();
-                    break;
-            }
+            CalendarFragment calendarFragment = (CalendarFragment) mFragmentsMap.get(CalendarFragment.TAG);
+            if (calendarFragment != null) calendarFragment.showCalendarView();
         }
     };
 }
