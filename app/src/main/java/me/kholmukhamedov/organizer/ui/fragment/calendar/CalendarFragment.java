@@ -51,4 +51,12 @@ public class CalendarFragment extends MvpAppCompatFragment implements CalendarVi
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         menu.setGroupVisible(R.id.main_toolbar_calendar_options, true);
     }
+
+    public void hideCalendarView() {
+        if (mCalendarView != null) mCalendarView.setVisibility(View.INVISIBLE);
+    }
+
+    public void showCalendarView() {
+        if (mCalendarView != null) mCalendarView.setVisibility(View.VISIBLE);
+    }
 }

@@ -156,12 +156,26 @@ public class MainActivity extends MvpAppCompatActivity implements MainView {
     public void expandAddScreen() {
         mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
         mBottomSheetTextView.setVisibility(View.INVISIBLE);
+
+        switch (mBottomSheetNavigationView.getSelectedItemId()) {
+            case R.id.main_bottom_sheet_navigation_calendar:
+                CalendarFragment calendarFragment = (CalendarFragment) mFragmentsMap.get(CalendarFragment.TAG);
+                calendarFragment.hideCalendarView();
+                break;
+        }
     }
 
     @Override
     public void collapseAddScreen() {
         mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
         mBottomSheetTextView.setVisibility(View.VISIBLE);
+
+        switch (mBottomSheetNavigationView.getSelectedItemId()) {
+            case R.id.main_bottom_sheet_navigation_calendar:
+                CalendarFragment calendarFragment = (CalendarFragment) mFragmentsMap.get(CalendarFragment.TAG);
+                calendarFragment.showCalendarView();
+                break;
+        }
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener onNavigationItemSelectedListener =
@@ -192,9 +206,6 @@ public class MainActivity extends MvpAppCompatActivity implements MainView {
                 case BottomSheetBehavior.STATE_EXPANDED:
                     mMainPresenter.expandAddScreen();
                     break;
-                case BottomSheetBehavior.STATE_DRAGGING:
-                    mBottomSheetTextView.setVisibility(View.INVISIBLE);
-                    break;
                 case BottomSheetBehavior.STATE_COLLAPSED:
                     mMainPresenter.collapseAddScreen();
                     break;
@@ -202,6 +213,15 @@ public class MainActivity extends MvpAppCompatActivity implements MainView {
         }
 
         @Override
-        public void onSlide(@NonNull View bottomSheet, float slideOffset) {}
+        public void onSlide(@NonNull View bottomSheet, float slideOffset) {
+            mBottomSheetTextView.setVisibility(View.INVISIBLE);
+
+            switch (mBottomSheetNavigationView.getSelectedItemId()) {
+                case R.id.main_bottom_sheet_navigation_calendar:
+                    CalendarFragment calendarFragment = (CalendarFragment) mFragmentsMap.get(CalendarFragment.TAG);
+                    calendarFragment.showCalendarView();
+                    break;
+            }
+        }
     };
 }
