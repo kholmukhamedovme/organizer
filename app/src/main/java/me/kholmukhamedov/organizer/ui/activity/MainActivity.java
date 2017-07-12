@@ -85,6 +85,14 @@ public class MainActivity extends MvpAppCompatActivity implements MainView {
     }
 
     @Override
+    public void onBackPressed() {
+        if (bottomSheetBehavior.getState() == BottomSheetBehavior.STATE_EXPANDED)
+            presenter.collapseAddScreen();
+        else
+            super.onBackPressed();
+    }
+
+    @Override
     public void navigateToCalendar() {
         Fragment savedFragment = fragments.get(CalendarFragment.TAG);
         Fragment savedAddScreenFragment = fragments.get(AddAppointmentFragment.TAG);
