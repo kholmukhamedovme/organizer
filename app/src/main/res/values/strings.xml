@@ -13,4 +13,7 @@
     <string name="title">Title</string>
     <string name="from">From</string>
     <string name="to">To</string>
+    <string name="cancel">Cancel</string>
+    <string name="default_appointment_time_start" translatable="false">12:00</string>
+    <string name="default_appointment_time_end" translatable="false">13:00</string>
 </resources>

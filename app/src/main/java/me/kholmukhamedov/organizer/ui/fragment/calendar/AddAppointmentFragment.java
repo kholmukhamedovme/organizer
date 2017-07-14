@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TimePicker;
@@ -19,6 +20,7 @@ import me.kholmukhamedov.organizer.presentation.presenter.calendar.AddAppointmen
 import com.arellomobile.mvp.MvpAppCompatFragment;
 
 import me.kholmukhamedov.organizer.R;
+import me.kholmukhamedov.organizer.ui.activity.MainActivity;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
 
@@ -46,6 +48,10 @@ public class AddAppointmentFragment extends MvpAppCompatFragment implements AddA
     EditText mAppointmentTimeEnd;
     @BindView(R.id.appointment_date_end)
     EditText mAppointmentDateEnd;
+    @BindView(R.id.appointment_cancel)
+    Button mAppointmentCancel;
+    @BindView(R.id.appointment_add)
+    Button mAppointmentAdd;
 
     public static AddAppointmentFragment newInstance() {
         AddAppointmentFragment fragment = new AddAppointmentFragment();
@@ -147,6 +153,15 @@ public class AddAppointmentFragment extends MvpAppCompatFragment implements AddA
                 view.setText(selectedDay + "/" + selectedMonth + "/" + selectedYear);
             }
         }, defaultYear, defaultMonth, defaultDay).show();
+    }
+
+    @OnClick(R.id.appointment_cancel)
+    void cancel() {
+        ((MainActivity) getActivity()).collapseAddScreen();
+        mAppointmentTitle.setText("");
+        mAppointmentTimeStart.setText(R.string.default_appointment_time_start);
+        mAppointmentTimeEnd.setText(R.string.default_appointment_time_end);
+        setDefaultDate(System.currentTimeMillis());
     }
 
     private String getValidDateTime (int dateTime) {
