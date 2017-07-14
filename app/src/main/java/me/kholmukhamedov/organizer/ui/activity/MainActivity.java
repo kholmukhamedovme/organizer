@@ -6,7 +6,7 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.util.ArrayMap;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -31,14 +31,13 @@ import me.kholmukhamedov.organizer.ui.fragment.todo.AddTodoFragment;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
 
-import java.util.Map;
+import java.util.ArrayList;
 
 public class MainActivity extends MvpAppCompatActivity implements MainView {
     public static final String TAG = "MainActivity";
 
     private BottomSheetBehavior mBottomSheetBehavior;
     private FragmentManager mFragmentManager;
-    private Map<String, Fragment> mFragmentsMap = new ArrayMap<>();
 
     @InjectPresenter
     MainPresenter mMainPresenter;
@@ -79,19 +78,24 @@ public class MainActivity extends MvpAppCompatActivity implements MainView {
             case R.id.main_toolbar_add:
                 mMainPresenter.expandAddScreen();
 
-                switch (mBottomSheetNavigationView.getSelectedItemId()) {
-                    case R.id.main_bottom_sheet_navigation_calendar:
-                        CalendarFragment calendarFragment =
-                                (CalendarFragment) mFragmentsMap.get(CalendarFragment.TAG);
-                        AddAppointmentFragment addAppointmentFragment =
-                                (AddAppointmentFragment) mFragmentsMap.get(AddAppointmentFragment.TAG);
+                if (mBottomSheetNavigationView.getSelectedItemId() == R.id.main_bottom_sheet_navigation_calendar) {
+                    CalendarFragment calendarFragment =
+                            (CalendarFragment) mFragmentManager.findFragmentByTag(CalendarFragment.TAG);
+                    AddAppointmentFragment addAppointmentFragment =
+                            (AddAppointmentFragment) mFragmentManager.findFragmentByTag(AddAppointmentFragment.TAG);
 
-                        long selectedDate = calendarFragment.getSelectedDate();
-                        addAppointmentFragment.setDefaultDate(selectedDate);
-
-                        break;
+                    long selectedDate = calendarFragment.getSelectedDate();
+                    addAppointmentFragment.setDefaultDate(selectedDate);
                 }
 
+                return true;
+            case R.id.main_toolbar_change_view:
+                return true;
+            case R.id.main_toolbar_delete_all_todos:
+                return true;
+            case R.id.main_toolbar_reset_all_chronographs:
+                return true;
+            case R.id.main_toolbar_settings:
                 return true;
         }
 
@@ -108,62 +112,65 @@ public class MainActivity extends MvpAppCompatActivity implements MainView {
 
     @Override
     public void navigateToCalendar() {
-        Fragment mainFragment = mFragmentsMap.get(CalendarFragment.TAG);
-        Fragment addScreenFragment = mFragmentsMap.get(AddAppointmentFragment.TAG);
+        FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
+        Fragment mainFragment = mFragmentManager.findFragmentByTag(CalendarFragment.TAG);
+        Fragment addScreenFragment = mFragmentManager.findFragmentByTag(AddAppointmentFragment.TAG);
+
+        hideAllFragments();
 
         if (mainFragment == null && addScreenFragment == null) {
-            mainFragment = CalendarFragment.newInstance();
-            addScreenFragment = AddAppointmentFragment.newInstance();
-
-            mFragmentsMap.put(CalendarFragment.TAG, mainFragment);
-            mFragmentsMap.put(AddAppointmentFragment.TAG, addScreenFragment);
+            fragmentTransaction
+                    .add(R.id.main_fragment, CalendarFragment.newInstance(), CalendarFragment.TAG)
+                    .add(R.id.main_bottom_sheet_fragment, AddAppointmentFragment.newInstance(), AddAppointmentFragment.TAG);
+        } else {
+            fragmentTransaction
+                    .show(mainFragment)
+                    .show(addScreenFragment);
         }
 
-        mFragmentManager
-                .beginTransaction()
-                .replace(R.id.main_fragment, mainFragment, CalendarFragment.TAG)
-                .replace(R.id.main_bottom_sheet_fragment, addScreenFragment, AddAppointmentFragment.TAG)
-                .commit();
+        fragmentTransaction.commit();
     }
 
     @Override
     public void navigateToTodo() {
-        Fragment mainFragment = mFragmentsMap.get(TodoFragment.TAG);
-        Fragment addScreenFragment = mFragmentsMap.get(AddTodoFragment.TAG);
+        FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
+        Fragment mainFragment = mFragmentManager.findFragmentByTag(TodoFragment.TAG);
+        Fragment addScreenFragment = mFragmentManager.findFragmentByTag(AddTodoFragment.TAG);
+
+        hideAllFragments();
 
         if (mainFragment == null && addScreenFragment == null) {
-            mainFragment = TodoFragment.newInstance();
-            addScreenFragment = AddTodoFragment.newInstance();
-
-            mFragmentsMap.put(TodoFragment.TAG, mainFragment);
-            mFragmentsMap.put(AddTodoFragment.TAG, addScreenFragment);
+            fragmentTransaction
+                    .add(R.id.main_fragment, TodoFragment.newInstance(), TodoFragment.TAG)
+                    .add(R.id.main_bottom_sheet_fragment, AddTodoFragment.newInstance(), AddTodoFragment.TAG);
+        } else {
+            fragmentTransaction
+                    .show(mainFragment)
+                    .show(addScreenFragment);
         }
 
-        mFragmentManager
-                .beginTransaction()
-                .replace(R.id.main_fragment, mainFragment, TodoFragment.TAG)
-                .replace(R.id.main_bottom_sheet_fragment, addScreenFragment, AddTodoFragment.TAG)
-                .commit();
+        fragmentTransaction.commit();
     }
 
     @Override
     public void navigateToTimeTracker() {
-        Fragment mainFragment = mFragmentsMap.get(TimeTrackerFragment.TAG);
-        Fragment addScreenFragment = mFragmentsMap.get(AddChronographFragment.TAG);
+        FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
+        Fragment mainFragment = mFragmentManager.findFragmentByTag(TimeTrackerFragment.TAG);
+        Fragment addScreenFragment = mFragmentManager.findFragmentByTag(AddChronographFragment.TAG);
+
+        hideAllFragments();
 
         if (mainFragment == null && addScreenFragment == null) {
-            mainFragment = TimeTrackerFragment.newInstance();
-            addScreenFragment = AddChronographFragment.newInstance();
-
-            mFragmentsMap.put(TimeTrackerFragment.TAG, mainFragment);
-            mFragmentsMap.put(AddChronographFragment.TAG, addScreenFragment);
+            fragmentTransaction
+                    .add(R.id.main_fragment, TimeTrackerFragment.newInstance(), TimeTrackerFragment.TAG)
+                    .add(R.id.main_bottom_sheet_fragment, AddChronographFragment.newInstance(), AddChronographFragment.TAG);
+        } else {
+            fragmentTransaction
+                    .show(mainFragment)
+                    .show(addScreenFragment);
         }
 
-        mFragmentManager
-                .beginTransaction()
-                .replace(R.id.main_fragment, mainFragment, TimeTrackerFragment.TAG)
-                .replace(R.id.main_bottom_sheet_fragment, addScreenFragment, AddChronographFragment.TAG)
-                .commit();
+        fragmentTransaction.commit();
     }
 
     @Override
@@ -171,7 +178,7 @@ public class MainActivity extends MvpAppCompatActivity implements MainView {
         mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
         mBottomSheetTextView.setVisibility(View.INVISIBLE);
 
-        CalendarFragment calendarFragment = (CalendarFragment) mFragmentsMap.get(CalendarFragment.TAG);
+        CalendarFragment calendarFragment = (CalendarFragment) mFragmentManager.findFragmentByTag(CalendarFragment.TAG);
         if (calendarFragment != null) calendarFragment.hideCalendarView();
     }
 
@@ -180,7 +187,7 @@ public class MainActivity extends MvpAppCompatActivity implements MainView {
         mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
         mBottomSheetTextView.setVisibility(View.VISIBLE);
 
-        CalendarFragment calendarFragment = (CalendarFragment) mFragmentsMap.get(CalendarFragment.TAG);
+        CalendarFragment calendarFragment = (CalendarFragment) mFragmentManager.findFragmentByTag(CalendarFragment.TAG);
         if (calendarFragment != null) calendarFragment.showCalendarView();
     }
 
@@ -222,8 +229,26 @@ public class MainActivity extends MvpAppCompatActivity implements MainView {
         public void onSlide(@NonNull View bottomSheet, float slideOffset) {
             mBottomSheetTextView.setVisibility(View.INVISIBLE);
 
-            CalendarFragment calendarFragment = (CalendarFragment) mFragmentsMap.get(CalendarFragment.TAG);
+            CalendarFragment calendarFragment = (CalendarFragment) mFragmentManager.findFragmentByTag(CalendarFragment.TAG);
             if (calendarFragment != null) calendarFragment.showCalendarView();
         }
     };
+
+    private void hideAllFragments() {
+        FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
+        ArrayList<Fragment> fragments = new ArrayList<>();
+
+        fragments.add(mFragmentManager.findFragmentByTag(CalendarFragment.TAG));
+        fragments.add(mFragmentManager.findFragmentByTag(AddAppointmentFragment.TAG));
+        fragments.add(mFragmentManager.findFragmentByTag(TodoFragment.TAG));
+        fragments.add(mFragmentManager.findFragmentByTag(AddTodoFragment.TAG));
+        fragments.add(mFragmentManager.findFragmentByTag(TimeTrackerFragment.TAG));
+        fragments.add(mFragmentManager.findFragmentByTag(AddChronographFragment.TAG));
+
+        for (Fragment fragment : fragments) {
+            if (fragment != null) fragmentTransaction.hide(fragment);
+        }
+
+        fragmentTransaction.commit();
+    }
 }

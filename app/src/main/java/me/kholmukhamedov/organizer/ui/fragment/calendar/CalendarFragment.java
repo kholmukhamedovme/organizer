@@ -42,12 +42,6 @@ public class CalendarFragment extends MvpAppCompatFragment implements CalendarVi
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setRetainInstance(true);
-    }
-
-    @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container,
                              final Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_calendar, container, false);
@@ -57,12 +51,24 @@ public class CalendarFragment extends MvpAppCompatFragment implements CalendarVi
         mCalendar = Calendar.getInstance();
         mCalendarView.setOnDateChangeListener(onDateChangeListener);
 
+        if (savedInstanceState != null) {
+            long savedSelectedDate = savedInstanceState.getLong("savedSelectedDate");
+            mCalendar.setTimeInMillis(savedSelectedDate);
+            mCalendarView.setDate(savedSelectedDate);
+        }
+
         return view;
     }
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         menu.setGroupVisible(R.id.main_toolbar_calendar_options, true);
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putLong("savedSelectedDate", mCalendar.getTimeInMillis());
     }
 
     public void hideCalendarView() {

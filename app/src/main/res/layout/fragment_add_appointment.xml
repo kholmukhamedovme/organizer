@@ -2,13 +2,9 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     android:focusableInTouchMode="true"
-    android:layout_marginTop="@dimen/main_bottom_sheet_fragment_margin_top"
-    android:layout_marginStart="@dimen/main_bottom_sheet_fragment_margin_start"
-    android:layout_marginEnd="@dimen/main_bottom_sheet_fragment_margin_end"
-    android:layout_marginBottom="@dimen/main_bottom_sheet_fragment_margin_bottom"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
     tools:context=".ui.fragment.calendar.AddAppointmentFragment">
 
     <EditText
@@ -24,7 +20,7 @@
     <TextView
         android:id="@+id/appointment_start"
         android:text="@string/from"
-        android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
+        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
         android:paddingStart="3dp"
         android:paddingEnd="5dp"
         android:layout_height="wrap_content"

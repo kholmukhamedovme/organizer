@@ -26,7 +26,7 @@
         android:layout_width="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <ScrollView
+        <FrameLayout
             android:id="@+id/main_fragment"
             android:layout_marginBottom="@dimen/main_bottom_sheet_peek_height"
             android:layout_height="match_parent"
@@ -57,6 +57,10 @@
 
             <FrameLayout
                 android:id="@+id/main_bottom_sheet_fragment"
+                android:layout_marginTop="@dimen/main_bottom_sheet_fragment_margin_top"
+                android:layout_marginStart="@dimen/main_bottom_sheet_fragment_margin_start"
+                android:layout_marginEnd="@dimen/main_bottom_sheet_fragment_margin_end"
+                android:layout_marginBottom="@dimen/main_bottom_sheet_fragment_margin_bottom"
                 android:layout_height="match_parent"
                 android:layout_width="match_parent" />
 
