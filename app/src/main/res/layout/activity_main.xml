@@ -39,7 +39,7 @@
             android:layout_height="match_parent"
             android:layout_width="match_parent"
             app:behavior_peekHeight="@dimen/main_bottom_sheet_peek_height"
-            app:layout_behavior="@string/bottom_sheet_behavior">
+            app:layout_behavior="me.kholmukhamedov.organizer.ui.activity.CustomBottomSheetBehavior">
 
             <android.support.design.widget.BottomNavigationView
                 android:id="@+id/main_bottom_sheet_navigation"
@@ -57,10 +57,8 @@
 
             <FrameLayout
                 android:id="@+id/main_bottom_sheet_fragment"
-                android:layout_marginTop="@dimen/main_bottom_sheet_fragment_margin_top"
                 android:layout_marginStart="@dimen/main_bottom_sheet_fragment_margin_start"
                 android:layout_marginEnd="@dimen/main_bottom_sheet_fragment_margin_end"
-                android:layout_marginBottom="@dimen/main_bottom_sheet_fragment_margin_bottom"
                 android:layout_height="match_parent"
                 android:layout_width="match_parent" />
 
