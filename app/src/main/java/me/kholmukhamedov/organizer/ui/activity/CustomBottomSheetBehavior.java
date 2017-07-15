@@ -36,9 +36,6 @@ public class CustomBottomSheetBehavior<V extends View> extends BottomSheetBehavi
             viewEndY = 0;
         }
 
-        if (pointerStartY > viewStartY && pointerStartY < viewEndY)
-            return false;
-        else
-            return super.onTouchEvent(parent, child, event);
+        return pointerStartY > viewStartY && pointerStartY < viewEndY || super.onTouchEvent(parent, child, event);
     }
 }

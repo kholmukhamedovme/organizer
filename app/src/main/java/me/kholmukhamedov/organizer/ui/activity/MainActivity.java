@@ -79,13 +79,10 @@ public class MainActivity extends MvpAppCompatActivity implements MainView {
                 mMainPresenter.expandAddScreen();
 
                 if (mBottomSheetNavigationView.getSelectedItemId() == R.id.main_bottom_sheet_navigation_calendar) {
-                    CalendarFragment calendarFragment =
-                            (CalendarFragment) mFragmentManager.findFragmentByTag(CalendarFragment.TAG);
-                    AddAppointmentFragment addAppointmentFragment =
-                            (AddAppointmentFragment) mFragmentManager.findFragmentByTag(AddAppointmentFragment.TAG);
-
-                    long selectedDate = calendarFragment.getSelectedDate();
-                    addAppointmentFragment.setDefaultDate(selectedDate);
+                    long selectedDate = ((CalendarFragment) mFragmentManager.findFragmentByTag(CalendarFragment.TAG))
+                            .getSelectedDate();
+                    ((AddAppointmentFragment) mFragmentManager.findFragmentByTag(AddAppointmentFragment.TAG))
+                            .setDefaultDate(selectedDate);
                 }
 
                 return true;
@@ -118,14 +115,14 @@ public class MainActivity extends MvpAppCompatActivity implements MainView {
 
         hideAllFragments();
 
-        if (mainFragment == null && addScreenFragment == null) {
-            fragmentTransaction
-                    .add(R.id.main_fragment, CalendarFragment.newInstance(), CalendarFragment.TAG)
-                    .add(R.id.main_bottom_sheet_fragment, AddAppointmentFragment.newInstance(), AddAppointmentFragment.TAG);
-        } else {
+        if (mainFragment != null && addScreenFragment != null) {
             fragmentTransaction
                     .show(mainFragment)
                     .show(addScreenFragment);
+        } else {
+            fragmentTransaction
+                    .add(R.id.main_fragment, CalendarFragment.newInstance(), CalendarFragment.TAG)
+                    .add(R.id.main_bottom_sheet_fragment, AddAppointmentFragment.newInstance(), AddAppointmentFragment.TAG);
         }
 
         fragmentTransaction.commit();
@@ -139,14 +136,14 @@ public class MainActivity extends MvpAppCompatActivity implements MainView {
 
         hideAllFragments();
 
-        if (mainFragment == null && addScreenFragment == null) {
-            fragmentTransaction
-                    .add(R.id.main_fragment, TodoFragment.newInstance(), TodoFragment.TAG)
-                    .add(R.id.main_bottom_sheet_fragment, AddTodoFragment.newInstance(), AddTodoFragment.TAG);
-        } else {
+        if (mainFragment != null && addScreenFragment != null) {
             fragmentTransaction
                     .show(mainFragment)
                     .show(addScreenFragment);
+        } else {
+            fragmentTransaction
+                    .add(R.id.main_fragment, TodoFragment.newInstance(), TodoFragment.TAG)
+                    .add(R.id.main_bottom_sheet_fragment, AddTodoFragment.newInstance(), AddTodoFragment.TAG);
         }
 
         fragmentTransaction.commit();
@@ -160,14 +157,14 @@ public class MainActivity extends MvpAppCompatActivity implements MainView {
 
         hideAllFragments();
 
-        if (mainFragment == null && addScreenFragment == null) {
-            fragmentTransaction
-                    .add(R.id.main_fragment, TimeTrackerFragment.newInstance(), TimeTrackerFragment.TAG)
-                    .add(R.id.main_bottom_sheet_fragment, AddChronographFragment.newInstance(), AddChronographFragment.TAG);
-        } else {
+        if (mainFragment != null && addScreenFragment != null) {
             fragmentTransaction
                     .show(mainFragment)
                     .show(addScreenFragment);
+        } else {
+            fragmentTransaction
+                    .add(R.id.main_fragment, TimeTrackerFragment.newInstance(), TimeTrackerFragment.TAG)
+                    .add(R.id.main_bottom_sheet_fragment, AddChronographFragment.newInstance(), AddChronographFragment.TAG);
         }
 
         fragmentTransaction.commit();
