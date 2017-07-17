@@ -14,4 +14,5 @@
     <string name="from">С</string>
     <string name="to">До</string>
     <string name="cancel">Отменить</string>
+    <string name="description">Описание</string>
 </resources>

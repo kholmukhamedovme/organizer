@@ -3,6 +3,6 @@
     <dimen name="main_bottom_sheet_peek_height">80dp</dimen>
     <dimen name="main_bottom_sheet_navigation_height">60dp</dimen>
     <dimen name="main_bottom_sheet_hint_height">20dp</dimen>
-    <dimen name="main_bottom_sheet_fragment_margin_start">20dp</dimen>
-    <dimen name="main_bottom_sheet_fragment_margin_end">20dp</dimen>
+    <dimen name="main_bottom_sheet_fragment_margin_top">-20dp</dimen>
+    <dimen name="main_bottom_sheet_fragment_padding">20dp</dimen>
 </resources>

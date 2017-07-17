@@ -57,8 +57,7 @@
 
             <FrameLayout
                 android:id="@+id/main_bottom_sheet_fragment"
-                android:layout_marginStart="@dimen/main_bottom_sheet_fragment_margin_start"
-                android:layout_marginEnd="@dimen/main_bottom_sheet_fragment_margin_end"
+                android:layout_marginTop="-20dp"
                 android:layout_height="match_parent"
                 android:layout_width="match_parent" />
 
