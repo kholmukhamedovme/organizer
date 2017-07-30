@@ -14,13 +14,13 @@ import android.widget.TimePicker;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import me.kholmukhamedov.organizer.presentation.view.MainView;
 import me.kholmukhamedov.organizer.presentation.view.calendar.AddAppointmentView;
 import me.kholmukhamedov.organizer.presentation.presenter.calendar.AddAppointmentPresenter;
 
 import com.arellomobile.mvp.MvpAppCompatFragment;
 
 import me.kholmukhamedov.organizer.R;
-import me.kholmukhamedov.organizer.ui.activity.MainActivity;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
 
@@ -48,6 +48,8 @@ public class AddAppointmentFragment extends MvpAppCompatFragment implements AddA
     EditText mAppointmentTimeEnd;
     @BindView(R.id.appointment_date_end)
     EditText mAppointmentDateEnd;
+    @BindView(R.id.appointment_description)
+    EditText mAppointmentDescription;
     @BindView(R.id.appointment_cancel)
     Button mAppointmentCancel;
     @BindView(R.id.appointment_add)
@@ -109,7 +111,7 @@ public class AddAppointmentFragment extends MvpAppCompatFragment implements AddA
                 if (view.getId() == R.id.appointment_time_start) {
                     mCalendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
                     mCalendar.set(Calendar.MINUTE, minute);
-                    mCalendar.setTimeInMillis(mCalendar.getTimeInMillis() + 3600000);
+                    mCalendar.setTimeInMillis(mCalendar.getTimeInMillis() + 1000 * 60 * 60);
 
                     int oneHourOffset = mCalendar.get(Calendar.HOUR_OF_DAY);
                     String oneHourLater = getValidDateTime(oneHourOffset);
@@ -157,10 +159,11 @@ public class AddAppointmentFragment extends MvpAppCompatFragment implements AddA
 
     @OnClick(R.id.appointment_cancel)
     void cancel() {
-        ((MainActivity) getActivity()).collapseAddScreen();
+        ((MainView) getActivity()).collapseAddScreen();
         mAppointmentTitle.setText("");
         mAppointmentTimeStart.setText(R.string.default_appointment_time_start);
         mAppointmentTimeEnd.setText(R.string.default_appointment_time_end);
+        mAppointmentDescription.setText("");
         setDefaultDate(System.currentTimeMillis());
     }
 

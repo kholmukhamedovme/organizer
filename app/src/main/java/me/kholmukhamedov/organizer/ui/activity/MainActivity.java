@@ -208,8 +208,8 @@ public class MainActivity extends MvpAppCompatActivity implements MainView {
         }
     };
 
-    private BottomSheetBehavior.BottomSheetCallback bottomSheetCallback =
-            new BottomSheetBehavior.BottomSheetCallback() {
+    private CustomBottomSheetBehavior.BottomSheetCallback bottomSheetCallback =
+            new CustomBottomSheetBehavior.BottomSheetCallback() {
         @Override
         public void onStateChanged(@NonNull View bottomSheet, int newState) {
             switch (newState) {
